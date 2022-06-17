@@ -4,7 +4,6 @@ public class ConsoleProgressBar {
 
     int status_length = 30; // length of progress line
     string status = ""; // progress line body
-    string last_message = "";
     private const string animation = @"-\|/-";
 
     public ConsoleProgressBar(string description = "Progress") { Description = description; }
@@ -20,13 +19,12 @@ public class ConsoleProgressBar {
         int progress_count = (int)(percents * status_length / 100);
         int points_count = status_length - progress_count;
         status = "[" + new string('■', progress_count) + new string('.', points_count) + "]";
-        string current_message = $"{Description}: " +
+        string current_message = $"\r{Description}: " +
             $"{percents:f1}% " +
             $"{status} " +
             $"{animation[step % animation.Length]} " +
             $"{step}/{Total} " +
-            $"{suffix}";
-        Console.Write(new string('\b', last_message.Length));
+            $"{suffix}";     
         Console.Write(current_message);
         last_message = current_message;
     }
